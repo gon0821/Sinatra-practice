@@ -19,7 +19,7 @@ get '/memos/new' do
 end
 
 post '/memos' do
-  @memos = JSON.load_file('memos.json')
+  memos = JSON.load_file('memos.json')
   new_id = memos.keys.last.to_i + 1
   memos[new_id.to_s] =
     {
