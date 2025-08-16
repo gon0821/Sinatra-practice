@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 require 'sinatra'
 require 'sinatra/reloader'
 require 'json'
 require 'debug' # TODO：必ず消すこと
 
 get '/' do
-  "Hello World!"
+  erb :home
 end
 
 get '/memos' do
-  @memos = File.open('memos.json') {|file| JSON.load(file)}
+  @memos = JSON.load_file('memos.json')
   erb :index
 end
 
@@ -17,14 +19,14 @@ get '/memos/new' do
 end
 
 post '/memos' do
-  memos = File.open('memos.json') {|file| JSON.load(file)}
+  @memos = JSON.load_file('memos.json')
   new_id = memos.keys.last.to_i + 1
   memos[new_id.to_s] =
     {
-      "title" => params[:title],
-      "content" => params[:content]
+      'title' => params[:title],
+      'content' => params[:content]
     }
-  File.open('memos.json', 'w') {|file| JSON.dump(memos, file)}
+  File.open('memos.json', 'w') { |file| JSON.dump(memos, file) }
 
   redirect to('/memos/complete'), 303
 end
@@ -34,7 +36,7 @@ get '/memos/complete' do
 end
 
 get '/memos/:id' do
-  memos = File.open('memos.json') {|file| JSON.load(file)}
+  memos = JSON.load_file('memos.json')
   @id = params[:id]
   @memo = memos[@id]
   if @memo
@@ -45,7 +47,7 @@ get '/memos/:id' do
 end
 
 get '/memos/:id/edit' do
-  memos = File.open('memos.json') {|file| JSON.load(file)}
+  memos = JSON.load_file('memos.json')
   @id = params[:id]
   @memo = memos[@id]
   if @memo
@@ -56,23 +58,23 @@ get '/memos/:id/edit' do
 end
 
 patch '/memos/:id' do
-  memos = File.open('memos.json') {|file| JSON.load(file)}
+  memos = JSON.load_file('memos.json')
   memos[params[:id]] =
     {
-      "title" => params[:title],
-      "content" => params[:content]
+      'title' => params[:title],
+      'content' => params[:content]
     }
-  File.open('memos.json', 'w') {|file| JSON.dump(memos, file)}
+  File.open('memos.json', 'w') { |file| JSON.dump(memos, file) }
 
   redirect to("/memos/#{params[:id]}"), 303
 end
 
 delete '/memos/:id' do
-  memos = File.open('memos.json') {|file| JSON.load(file)}
+  memos = JSON.load_file('memos.json')
   memos.delete(params[:id])
-  File.open('memos.json', 'w') {|file| JSON.dump(memos, file)}
+  File.open('memos.json', 'w') { |file| JSON.dump(memos, file) }
 
-  redirect to("/memos"), 303
+  redirect to('/memos'), 303
 end
 
 not_found do
