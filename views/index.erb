@@ -1,0 +1,11 @@
+<h1>一覧画面</h1>
+<div>
+  <a href="/memos/new">新規作成</a>
+</div>
+<ul>
+<% @memos.each do |id, memo| %>
+<li>
+  <a href="/memos/<%= id %>"><%= memo["title"] %></a>
+</li>
+<% end %>
+</ul>

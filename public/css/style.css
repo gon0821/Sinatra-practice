@@ -1,0 +1,25 @@
+header {
+  background-color: #00366b;
+}
+
+main {
+  background-color: #fef6eb;
+}
+ 
+footer {
+  background-color: #ececec;
+}
+
+.header-container {
+  padding: 1rem 4rem;
+  color: #ffffff;
+}
+
+.main-container {
+  padding: 2rem 5rem;
+}
+
+.footer-container {
+  padding: 1rem 4rem;
+  font-size: 0.75rem;
+}
