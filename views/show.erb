@@ -1,23 +1,25 @@
 <h1>詳細画面</h1>
-<div>
+<div class="btn-container">
   <div>
-    <p><%= @memo['title'] %></p>
+    <a href="/memos" class="btn">戻る</a>
   </div>
-  <div>
-    <p><%= @memo['content'] %></p>
+  <div class="btn-container">
+    <a href="/memos/<%= @id %>/edit" class="btn">編集</a>
+    <div>
+      <form action="/memos/<%= @id %>" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <input type="submit" value="削除" class="btn">
+      </form>
+    </div>
   </div>
 </div>
-<div>
-  <div>
-    <a href="/memos">戻る</a>
+<div class="sub-container">
+  <div class="item">
+    <p class="item-title">タイトル</p>
+    <p><%= @memo['title'] %></p>
   </div>
-  <div>
-    <a href="/memos/<%= @id %>/edit">編集</a>
-  </div>
-  <div>
-    <form action="/memos/<%= @id %>" method="post">
-      <input type="hidden" name="_method" value="delete">
-      <input type="submit" value="削除">
-    </form>
+  <div class="item">
+    <p class="item-title">内容</p>
+    <p><%= @memo['content'] %></p>
   </div>
 </div>
