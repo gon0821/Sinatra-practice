@@ -1,4 +1,4 @@
-# MemoApp ~Sinatra~
+# MemoApp
 ## 概要
 シンプルなWebフレームワークSinatraでWeb開発の基礎を学ぶために作成したメモアプリです
 
