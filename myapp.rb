@@ -19,13 +19,12 @@ get '/memos/new' do
 end
 
 post '/memos' do
-  include ERB::Util
   memos = JSON.load_file('memos.json')
   new_id = memos.keys.last.to_i + 1
   memos[new_id.to_s] =
     {
-      'title' => html_escape(params[:title]),
-      'content' => html_escape(params[:content])
+      'title' => ERB::Util.html_escape(params[:title]),
+      'content' => ERB::Util.html_escape(params[:content])
     }
   File.open('memos.json', 'w') { |file| JSON.dump(memos, file) }
 
@@ -62,8 +61,8 @@ patch '/memos/:id' do
   memos = JSON.load_file('memos.json')
   memos[params[:id]] =
     {
-      'title' => html_escape(params[:title]),
-      'content' => html_escape(params[:content])
+      'title' => ERB::Util.html_escape(params[:title]),
+      'content' => ERB::Util.html_escape(params[:content])
     }
   File.open('memos.json', 'w') { |file| JSON.dump(memos, file) }
 
