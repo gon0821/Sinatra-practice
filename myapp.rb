@@ -4,8 +4,6 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'json'
 require 'erb'
-include ERB::Util
-require 'debug' # TODO：必ず消すこと
 
 get '/' do
   erb :home
@@ -21,6 +19,7 @@ get '/memos/new' do
 end
 
 post '/memos' do
+  include ERB::Util
   memos = JSON.load_file('memos.json')
   new_id = memos.keys.last.to_i + 1
   memos[new_id.to_s] =

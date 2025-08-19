@@ -16,10 +16,10 @@
 <div class="sub-container">
   <div class="item">
     <p class="item-title">タイトル</p>
-    <p><%= @memo['title'] %></p>
+    <p><%= html_escape(@memo['title']) %></p>
   </div>
   <div class="item">
     <p class="item-title">内容</p>
-    <p><%= @memo['content'] %></p>
+    <p><%= html_escape(@memo['content']) %></p>
   </div>
 </div>
