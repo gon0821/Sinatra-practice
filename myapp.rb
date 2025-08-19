@@ -3,6 +3,8 @@
 require 'sinatra'
 require 'sinatra/reloader'
 require 'json'
+require 'erb'
+include ERB::Util
 require 'debug' # TODO：必ず消すこと
 
 get '/' do
@@ -23,8 +25,8 @@ post '/memos' do
   new_id = memos.keys.last.to_i + 1
   memos[new_id.to_s] =
     {
-      'title' => params[:title],
-      'content' => params[:content]
+      'title' => html_escape(params[:title]),
+      'content' => html_escape(params[:content])
     }
   File.open('memos.json', 'w') { |file| JSON.dump(memos, file) }
 
@@ -61,8 +63,8 @@ patch '/memos/:id' do
   memos = JSON.load_file('memos.json')
   memos[params[:id]] =
     {
-      'title' => params[:title],
-      'content' => params[:content]
+      'title' => html_escape(params[:title]),
+      'content' => html_escape(params[:content])
     }
   File.open('memos.json', 'w') { |file| JSON.dump(memos, file) }
 
