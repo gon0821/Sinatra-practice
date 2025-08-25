@@ -42,6 +42,7 @@ get '/memos/:id' do
   if @memo
     erb :show
   else
+    status 404
     erb :not_found
   end
 end
@@ -53,6 +54,7 @@ get '/memos/:id/edit' do
   if @memo
     erb :edit
   else
+    status 404
     erb :not_found
   end
 end
