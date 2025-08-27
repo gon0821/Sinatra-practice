@@ -17,7 +17,12 @@ get '/' do
 end
 
 get '/memos' do
-  @memos = JSON.load_file('memos.json')
+  if File.exist?('memos.json')
+    @memos = JSON.load_file('memos.json')
+  else
+    File.write('memos.json', {})
+    @memos = JSON.load_file('memos.json')
+  end
   erb :index
 end
 
