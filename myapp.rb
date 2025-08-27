@@ -21,11 +21,7 @@ end
 post '/memos' do
   memos = JSON.load_file('memos.json')
   new_id = memos.keys.last.to_i + 1
-  memos[new_id.to_s] =
-    {
-      'title' => params[:title],
-      'content' => params[:content]
-    }
+  memos[new_id.to_s] = params.slice(:title, :content)
   File.open('memos.json', 'w') { |file| JSON.dump(memos, file) }
 
   redirect to('/memos/complete'), 303
@@ -61,11 +57,7 @@ end
 
 patch '/memos/:id' do
   memos = JSON.load_file('memos.json')
-  memos[params[:id]] =
-    {
-      'title' => params[:title],
-      'content' => params[:content]
-    }
+  memos[params[:id]] = params.slice(:title, :content)
   File.open('memos.json', 'w') { |file| JSON.dump(memos, file) }
 
   redirect to("/memos/#{params[:id]}"), 303
