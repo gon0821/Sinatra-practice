@@ -5,6 +5,13 @@ require 'sinatra/reloader'
 require 'json'
 require 'erb'
 
+helpers do
+  def find(id)
+    memos = JSON.load_file('memos.json')
+    memos[id]
+  end
+end
+
 get '/' do
   erb :home
 end
@@ -32,9 +39,8 @@ get '/memos/complete' do
 end
 
 get '/memos/:id' do
-  memos = JSON.load_file('memos.json')
   @id = params[:id]
-  @memo = memos[@id]
+  @memo = find(@id)
   if @memo
     erb :show
   else
@@ -44,9 +50,8 @@ get '/memos/:id' do
 end
 
 get '/memos/:id/edit' do
-  memos = JSON.load_file('memos.json')
   @id = params[:id]
-  @memo = memos[@id]
+  @memo = find(@id)
   if @memo
     erb :edit
   else
