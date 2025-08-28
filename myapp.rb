@@ -12,17 +12,19 @@ helpers do
   end
 end
 
+helpers do
+  def save_to_json(memos)
+    File.open('memos.json', 'w') { |file| JSON.dump(memos, file) }
+  end
+end
+
 get '/' do
   erb :home
 end
 
 get '/memos' do
-  if File.exist?('memos.json')
-    @memos = JSON.load_file('memos.json')
-  else
-    File.write('memos.json', {})
-    @memos = JSON.load_file('memos.json')
-  end
+  File.write('memos.json', {}) unless File.exist?('memos.json')
+  @memos = JSON.load_file('memos.json')
   erb :index
 end
 
@@ -34,7 +36,7 @@ post '/memos' do
   memos = JSON.load_file('memos.json')
   new_id = memos.keys.last.to_i + 1
   memos[new_id.to_s] = params.slice(:title, :content)
-  File.open('memos.json', 'w') { |file| JSON.dump(memos, file) }
+  save_to_json(memos)
 
   redirect to('/memos/complete'), 303
 end
@@ -68,7 +70,7 @@ end
 patch '/memos/:id' do
   memos = JSON.load_file('memos.json')
   memos[params[:id]] = params.slice(:title, :content)
-  File.open('memos.json', 'w') { |file| JSON.dump(memos, file) }
+  save_to_json(memos)
 
   redirect to("/memos/#{params[:id]}"), 303
 end
@@ -76,7 +78,7 @@ end
 delete '/memos/:id' do
   memos = JSON.load_file('memos.json')
   memos.delete(params[:id])
-  File.open('memos.json', 'w') { |file| JSON.dump(memos, file) }
+  save_to_json(memos)
 
   redirect to('/memos'), 303
 end
