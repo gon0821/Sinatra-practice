@@ -6,9 +6,9 @@ require 'json'
 require 'erb'
 
 helpers do
-  def find(id)
-    memos = JSON.load_file('memos.json')
-    memos[id]
+  def load_memos
+    File.write('memos.json', {}) unless File.exist?('memos.json')
+    JSON.load_file('memos.json')
   end
 end
 
@@ -23,8 +23,7 @@ get '/' do
 end
 
 get '/memos' do
-  File.write('memos.json', {}) unless File.exist?('memos.json')
-  @memos = JSON.load_file('memos.json')
+  @memos = load_memos
   erb :index
 end
 
@@ -33,7 +32,7 @@ get '/memos/new' do
 end
 
 post '/memos' do
-  memos = JSON.load_file('memos.json')
+  memos = load_memos
   new_id = memos.keys.last.to_i + 1
   memos[new_id.to_s] = params.slice(:title, :content)
   save_to_json(memos)
@@ -46,8 +45,9 @@ get '/memos/complete' do
 end
 
 get '/memos/:id' do
+  memos = load_memos
   @id = params[:id]
-  @memo = find(@id)
+  @memo = memos[@id]
   if @memo
     erb :show
   else
@@ -57,8 +57,9 @@ get '/memos/:id' do
 end
 
 get '/memos/:id/edit' do
+  memos = load_memos
   @id = params[:id]
-  @memo = find(@id)
+  @memo = memos[@id]
   if @memo
     erb :edit
   else
@@ -68,7 +69,7 @@ get '/memos/:id/edit' do
 end
 
 patch '/memos/:id' do
-  memos = JSON.load_file('memos.json')
+  memos = load_memos
   memos[params[:id]] = params.slice(:title, :content)
   save_to_json(memos)
 
@@ -76,7 +77,7 @@ patch '/memos/:id' do
 end
 
 delete '/memos/:id' do
-  memos = JSON.load_file('memos.json')
+  memos = load_memos
   memos.delete(params[:id])
   save_to_json(memos)
 
