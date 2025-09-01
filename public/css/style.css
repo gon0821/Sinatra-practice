@@ -1,0 +1,223 @@
+/*
+////////////////////////////////////////
+reset.css を読み込んで全てのスタイルをなくす
+////////////////////////////////////////
+*/
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* ここまでreset.css */
+
+header {
+  background-color: #006b46;
+}
+
+main {
+  background-color: #fcfff2;
+}
+
+footer {
+  background-color: #ececec;
+}
+
+.header-container {
+  padding: 1rem 4rem;
+  color: #ffffff;
+}
+
+.main-container {
+  padding: 2rem 5rem;
+}
+
+.footer-container {
+  padding: 1rem 4rem;
+  font-size: 0.75rem;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 1.5;
+  padding-bottom: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+.btn {
+  display: block;
+  background-color: rgb(247, 247, 247);
+  padding: 0.5rem 1rem;
+  text-align: center;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  border: 1px solid #00366b;
+  transition: 0.3s;
+  box-shadow: 3px 3px 8px gray;
+}
+
+.btn:hover {
+  background-color: rgb(100, 210, 3);
+  color: #fff;
+}
+
+.card {
+  height: 3rem;
+  margin-top: 1.5rem;
+  background-color: #fff;
+  border: 1px solid #fcfbfb;
+  align-content: center;
+  box-shadow: 10px 3px 5px rgb(166, 166, 166);
+  transition: 0.3s;
+}
+
+.card:first-of-type {
+  margin-top: 2rem;
+}
+
+.card:hover {
+  background-color: #fffeda;
+}
+
+.card-link {
+  display: block;
+  padding-left: 2rem;
+}
+
+.form-items {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.form-items__item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.form-items__item label {
+  flex: 0 0 120px;
+  text-align: right;
+  font-weight: bold;
+}
+
+.form-items__item input[type="text"],
+.form-items__item textarea {
+  flex: 1;
+  padding: .5rem;
+  border: solid 1px #cccccc;
+  border-radius: 8px;
+  outline-color: #bfbed3;
+}
+
+.form-items__item textarea {
+  height: 120px;
+}
+
+.form-action {
+  margin-inline: auto;
+}
+
+.form-action input[type="submit"] {
+  width: 200px;
+  padding: 12px;
+  background-color: #eeeeee;
+  font-size: 18px;
+  border: solid 1px #b0b0b0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.form-action input[type="submit"]:hover {
+  background-color: rgb(100, 210, 3);
+  color: #fff;
+}
+
+.return-btn {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.sub-container {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.item-title {
+  flex: 0 0 120px;
+  text-align: right;
+  font-weight: bold;
+}

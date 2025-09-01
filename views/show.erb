@@ -1,0 +1,25 @@
+<h1>詳細画面</h1>
+<div class="btn-container">
+  <div>
+    <a href="/memos" class="btn">戻る</a>
+  </div>
+  <div class="btn-container">
+    <a href="/memos/<%= @id %>/edit" class="btn">編集</a>
+    <div>
+      <form action="/memos/<%= @id %>" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <input type="submit" value="削除" class="btn">
+      </form>
+    </div>
+  </div>
+</div>
+<div class="sub-container">
+  <div class="item">
+    <p class="item-title">タイトル</p>
+    <p><%= ERB::Util.html_escape(@memo['title']) %></p>
+  </div>
+  <div class="item">
+    <p class="item-title">内容</p>
+    <p><%= ERB::Util.html_escape(@memo['content']) %></p>
+  </div>
+</div>

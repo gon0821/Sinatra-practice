@@ -1,0 +1,13 @@
+<h1>一覧画面</h1>
+<div>
+  <a href="/memos/new" class="btn">新規作成</a>
+</div>
+<div class="sub-container">
+  <ul>
+  <% @memos.each do |id, memo| %>
+    <li class="card">
+      <a href="/memos/<%= id %>" class="card-link"><%= ERB::Util.html_escape(memo['title']) %></a>
+    </li>
+  <% end %>
+  </ul>
+</div>
