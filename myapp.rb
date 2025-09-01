@@ -45,9 +45,8 @@ get '/memos/complete' do
 end
 
 get '/memos/:id' do
-  memos = load_memos
   @id = params[:id]
-  @memo = memos[@id]
+  @memo = load_memos[@id]
   if @memo
     erb :show
   else
@@ -57,9 +56,8 @@ get '/memos/:id' do
 end
 
 get '/memos/:id/edit' do
-  memos = load_memos
   @id = params[:id]
-  @memo = memos[@id]
+  @memo = load_memos[@id]
   if @memo
     erb :edit
   else
