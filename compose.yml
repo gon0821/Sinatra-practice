@@ -2,14 +2,14 @@ services:
   db:
     image: postgres
     restart: always
+    ports:
+      - 5432:5432
     environment:
+      POSTGRES_USER: test_user
       POSTGRES_PASSWORD: password
+      POSTGRES_DB: memo_app
     volumes:
       - postgres-data:/var/lib/postgresql/data
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
+      - ./script:/docker-entrypoint-initdb.d
 volumes:
   postgres-data:
