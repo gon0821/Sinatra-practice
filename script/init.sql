@@ -1,5 +1,5 @@
 CREATE TABLE memos
 (id SERIAL PRIMARY KEY,
   title VARCHAR(100) NOT NULL,
-  context TEXT
+  content TEXT
 );
