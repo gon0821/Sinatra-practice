@@ -1,4 +1,7 @@
 # MemoApp
+
+<img width="581" height="220" alt="スクリーンショット 2025-09-06 2 48 04" src="https://github.com/user-attachments/assets/b7a548f3-1707-463d-83a7-0174579f4ec1" />
+
 ## 概要
 シンプルなWebフレームワークSinatraでWeb開発の基礎を学ぶために作成したメモアプリです
 
