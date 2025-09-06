@@ -4,9 +4,9 @@
 </div>
 <div class="sub-container">
   <ul>
-  <% @memos.each do |id, memo| %>
+  <% @memos.each do |memo| %>
     <li class="card">
-      <a href="/memos/<%= id %>" class="card-link"><%= ERB::Util.html_escape(memo['title']) %></a>
+      <a href="/memos/<%= memo['id'].to_i %>" class="card-link"><%= ERB::Util.html_escape(memo['title']) %></a>
     </li>
   <% end %>
   </ul>
