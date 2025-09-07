@@ -5,6 +5,7 @@ require 'sinatra/reloader'
 require 'json'
 require 'erb'
 require 'pg'
+require 'debug'
 
 configure do
   set :conn, PG.connect(host: 'localhost', port: 5432, dbname: 'memo_app', user: 'test_user', password: 'password')
@@ -32,7 +33,7 @@ get '/' do
 end
 
 get '/memos' do
-  @memos = execute_sql('SELECT * FROM memos').to_a
+  @memos = execute_sql('SELECT * FROM memos ORDER BY id DESC')
   erb :index
 end
 
@@ -52,7 +53,7 @@ end
 
 get '/memos/:id' do
   @id = params[:id]
-  @memo = execute_sql('SELECT * FROM memos WHERE id = $1', [@id]).to_a.first
+  @memo = execute_sql('SELECT * FROM memos WHERE id = $1', [@id]).first
   if @memo
     erb :show
   else
@@ -63,7 +64,7 @@ end
 
 get '/memos/:id/edit' do
   @id = params[:id]
-  @memo = execute_sql('SELECT * FROM memos WHERE id = $1', [@id]).to_a.first
+  @memo = execute_sql('SELECT * FROM memos WHERE id = $1', [@id]).first
   if @memo
     erb :edit
   else

@@ -6,7 +6,7 @@
   <ul>
   <% @memos.each do |memo| %>
     <li class="card">
-      <a href="/memos/<%= memo['id'].to_i %>" class="card-link"><%= ERB::Util.html_escape(memo['title']) %></a>
+      <a href="/memos/<%= memo['id'] %>" class="card-link"><%= ERB::Util.html_escape(memo['title']) %></a>
     </li>
   <% end %>
   </ul>
