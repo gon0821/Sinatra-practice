@@ -27,27 +27,41 @@ cd Sinatra-practice
 bundle install
 ```
 
-4. PostgreSQLコンテナをバックグラウンドで起動し、データベースを起動させます
+4. 環境変数を設定
+`.env`ファイルを作成します
+```bash
+touch .env
+```
+
+`.env`ファイルに下記例のように環境変数を設定してください
+```text
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_USER=test_user
+POSTGRES_PASSWORD=password
+```
+
+5. PostgreSQLコンテナをバックグラウンドで起動し、データベースを起動させます
 ```bash
 docker compose up -d
 ```
 
-5. PostgreSQLコンテナにターミナルでログインします
+6. PostgreSQLコンテナにターミナルでログインします
 ```bash
 docker compose exec db bash
 ```
 
-6. PostgreSQLに接続し、`memos`テーブルが存在することを確認します
+7. PostgreSQLに接続し、`memos`テーブルが存在することを確認します
 ```bash
 psql -U test_user -d memo_app -c '\dt;'
 
 # 確認できたらコンテナから抜ける
-exit
+exit 
 ```
 
-7. プログラムを実行し、サーバーを起動します
+8. プログラムを実行し、サーバーを起動します
 ```bash
 ruby myapp.rb
 ```
 
-8. ブラウザで`localhost:4567`にアクセスします
+9. ブラウザで`localhost:4567`にアクセスします
