@@ -5,10 +5,16 @@ require 'sinatra/reloader'
 require 'json'
 require 'erb'
 require 'pg'
-require 'debug'
+require 'dotenv/load'
 
 configure do
-  set :conn, PG.connect(host: 'localhost', port: 5432, dbname: 'memo_app', user: 'test_user', password: 'password')
+  set :conn, PG.connect(
+    host: ENV['POSTGRES_HOST'],
+    port: ENV['POSTGRES_PORT'],
+    dbname: 'memo_app',
+    user: ENV['POSTGRES_USER'],
+    password: ENV['POSTGRES_PASSWORD']
+  )
 end
 
 helpers do

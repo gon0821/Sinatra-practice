@@ -10,5 +10,6 @@ gem 'sinatra'
 gem 'sinatra-contrib'
 
 group :development do
+  gem 'dotenv'
   gem 'rubocop-fjord', require: false
 end
