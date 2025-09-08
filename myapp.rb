@@ -4,18 +4,34 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'json'
 require 'erb'
+require 'pg'
+require 'dotenv/load'
+
+configure do
+  set :conn, PG.connect(
+    host: ENV['POSTGRES_HOST'],
+    port: ENV['POSTGRES_PORT'],
+    dbname: 'memo_app',
+    user: ENV['POSTGRES_USER'],
+    password: ENV['POSTGRES_PASSWORD']
+  )
+end
 
 helpers do
-  def load_memos
-    File.write('memos.json', {}) unless File.exist?('memos.json')
-    JSON.load_file('memos.json')
+  def execute_sql(sql, params = [])
+    settings.conn.exec_params(sql, params)
   end
 end
 
 helpers do
-  def save_to_json(memos)
-    File.open('memos.json', 'w') { |file| JSON.dump(memos, file) }
+  def setup_database_table
+    sql = 'CREATE TABLE IF NOT EXISTS memos (id SERIAL PRIMARY KEY, title VARCHAR(100) NOT NULL, content TEXT)'
+    execute_sql(sql)
   end
+end
+
+before do
+  setup_database_table
 end
 
 get '/' do
@@ -23,7 +39,7 @@ get '/' do
 end
 
 get '/memos' do
-  @memos = load_memos
+  @memos = execute_sql('SELECT * FROM memos ORDER BY id DESC')
   erb :index
 end
 
@@ -32,10 +48,7 @@ get '/memos/new' do
 end
 
 post '/memos' do
-  memos = load_memos
-  new_id = memos.keys.last.to_i + 1
-  memos[new_id.to_s] = params.slice(:title, :content)
-  save_to_json(memos)
+  execute_sql('INSERT INTO memos (title, content) VALUES ($1, $2)', [params[:title], params[:content]])
 
   redirect to('/memos/complete'), 303
 end
@@ -46,7 +59,7 @@ end
 
 get '/memos/:id' do
   @id = params[:id]
-  @memo = load_memos[@id]
+  @memo = execute_sql('SELECT * FROM memos WHERE id = $1', [@id]).first
   if @memo
     erb :show
   else
@@ -57,7 +70,7 @@ end
 
 get '/memos/:id/edit' do
   @id = params[:id]
-  @memo = load_memos[@id]
+  @memo = execute_sql('SELECT * FROM memos WHERE id = $1', [@id]).first
   if @memo
     erb :edit
   else
@@ -67,17 +80,13 @@ get '/memos/:id/edit' do
 end
 
 patch '/memos/:id' do
-  memos = load_memos
-  memos[params[:id]] = params.slice(:title, :content)
-  save_to_json(memos)
+  execute_sql('UPDATE memos SET title = $1, content = $2 WHERE id = $3', [params[:title], params[:content], params[:id]])
 
   redirect to("/memos/#{params[:id]}"), 303
 end
 
 delete '/memos/:id' do
-  memos = load_memos
-  memos.delete(params[:id])
-  save_to_json(memos)
+  execute_sql('DELETE FROM memos WHERE id = $1', [params[:id]])
 
   redirect to('/memos'), 303
 end
